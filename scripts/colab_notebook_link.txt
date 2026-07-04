@@ -1,0 +1,18 @@
+This project's src/ modules are designed to also run inside Google Colab
+(free T4 GPU), since most laptops don't have enough VRAM for even QLoRA
+fine-tuning of an 8B model.
+
+To run on Colab:
+1. Open a new Colab notebook, select Runtime > Change runtime type > GPU (T4).
+2. Clone this repo:
+     !git clone <your-github-repo-url>
+     %cd llm-finetune-project
+3. Install dependencies:
+     !pip install -r requirements.txt --no-deps
+4. Run the pipeline exactly as locally:
+     !python -m src.data_preparation
+     !python -m src.train
+     !python -m src.evaluate
+
+Reference notebook (Unsloth official, for comparison / debugging):
+https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Llama3_(8B)-Ollama.ipynb

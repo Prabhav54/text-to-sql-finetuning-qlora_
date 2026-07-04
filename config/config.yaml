@@ -1,0 +1,75 @@
+# =========================================
+# Central configuration for the fine-tuning project
+# Change values here instead of editing code.
+# =========================================
+
+model:
+  # Single model for this project — Qwen2.5-1.5B-Instruct: trains fast,
+  # low GPU-hour cost, still a real, respectable model for a resume.
+  # Uses the same LoRA target module names as Llama-style architectures.
+  base_model: "unsloth/Qwen2.5-1.5B-Instruct-bnb-4bit"
+  chat_template: "chatml"
+  max_seq_length: 2048
+  load_in_4bit: true
+  dtype: null   # null = auto-detect (bf16 on Ampere+, fp16 otherwise)
+
+lora:
+  r: 16
+  lora_alpha: 16
+  lora_dropout: 0.0
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+  bias: "none"
+  use_gradient_checkpointing: "unsloth"
+
+data:
+  # gretelai/synthetic_text_to_sql: clean, well-formatted question/schema/SQL
+  # triples, scores higher than b-mc2/sql-create-context in Gretel's own
+  # LLM-judge comparison.
+  dataset_name: "gretelai/synthetic_text_to_sql"
+  num_records: 3000
+  raw_path: "data/raw/dataset.jsonl"
+  processed_train_path: "data/processed/train.jsonl"
+  processed_val_path: "data/processed/val.jsonl"
+  val_split_ratio: 0.1
+  question_field: "sql_prompt"
+  context_field: "sql_context"
+  answer_field: "sql"
+  seed: 3407
+
+training:
+  # Local paths — swap to Google Drive paths if training in Colab
+  # (e.g. "/content/drive/MyDrive/text-to-sql-finetuning/checkpoints")
+  output_dir: "models/checkpoints"
+  final_adapter_dir: "models/final_adapter"
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  num_train_epochs: 1
+  learning_rate: 2.0e-4
+  warmup_steps: 10
+  logging_steps: 10
+  save_steps: 100
+  optim: "adamw_8bit"
+  weight_decay: 0.01
+  lr_scheduler_type: "linear"
+  train_on_responses_only: true
+
+evaluation:
+  eval_output_path: "logs/eval_results.json"
+  num_qualitative_samples: 10
+  compare_against_base_model: true
+
+inference:
+  max_new_tokens: 256
+  temperature: 0.6
+  top_p: 0.9
+
+huggingface:
+  push_to_hub: true
+  repo_id: "Prabhav54/qwen2.5-1.5b-sql-qlora-adapter"

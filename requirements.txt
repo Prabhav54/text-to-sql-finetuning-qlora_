@@ -1,0 +1,16 @@
+unsloth @ git+https://github.com/unslothai/unsloth.git
+bitsandbytes
+accelerate
+xformers
+peft
+trl
+triton
+datasets>=3.4.1
+huggingface_hub
+sentencepiece
+protobuf
+pyyaml
+rouge-score
+scikit-learn
+torch
+sqlparse

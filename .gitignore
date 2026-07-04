@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+models/checkpoints/
+models/final_adapter/
+logs/*.json
+logs/*.log
+data/raw/*.jsonl
+data/processed/*.jsonl
+.env
+.ipynb_checkpoints/
+*.gguf
+.DS_Store
