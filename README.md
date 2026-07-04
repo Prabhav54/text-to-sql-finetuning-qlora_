@@ -7,13 +7,6 @@ Scope: fine-tuning and evaluation only. No orchestration framework (Flyte), no A
 deployment. The `app/streamlit_app.py` is a local demo for trying the model
 interactively — not a hosted service.
 
-Matches this resume entry:
-
-> **Domain-Specific LLM Fine-Tuning (Phi-3 / Llama-3)** — Hugging Face, Unsloth, PyTorch, QLoRA
-> - Engineered a custom instruction-tuning dataset of 10,000+ domain-specific records, formatting raw data into standard ChatML conversational templates.
-> - Fine-tuned Llama-3-8B using QLoRA and Unsloth via Google Colab, reducing memory footprint by 70% and accelerating training time.
-> - Published quantized LoRA adapters to Hugging Face, achieving a 40% improvement in task-specific accuracy (e.g., SQL generation) compared to the base model.
-
 ## Project Structure
 
 ```
